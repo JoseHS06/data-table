@@ -24,9 +24,7 @@ const app = createApp({
             isLoading: false // Proceso de carga de la tabla
         });
 
-        onMounted(() => {
-            getData();
-        });
+        onMounted(() => getData());
 
         //Obtener la información a mostrar en la tabla
         const getRows = () => {
@@ -43,18 +41,10 @@ const app = createApp({
 
 
         //Registros Filtrados
-        const filteredRows = computed(() => {
-
-            return dataTable.data.filter(item => dataTable.filters.some(key => item[key].toString().toLowerCase().includes(dataTable.search.toLowerCase())))
-
-        });
+        const filteredRows = computed(() => dataTable.data.filter(item => dataTable.filters.some(key => item[key].toString().toLowerCase().includes(dataTable.search.toLowerCase()))));
 
         //Número de páginas
-        const pages = computed(() => {
-
-            return Math.ceil(filteredRows.value.length / dataTable.pageSize);
-
-        });
+        const pages = computed(() => Math.ceil(filteredRows.value.length / dataTable.pageSize));
 
 
         watch(pages, () => dataTable.currentPage = 1);
